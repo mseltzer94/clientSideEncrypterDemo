@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/cryptojslib/rollups/aes.js"> </script>
+  <script src="bower_components/angular-cryptography/mdo-angular-cryptography.js"> </script>
+  <script src="resources/js/jquery-1.10.2.js"></script>
+  <script src="encrypterModule.js"></script>
+</head>
 <body ng-app="clientSideDataEncrypter">
-
 <div ng-controller="EncrypterController" >
   <h1> Encrypt Payload </h1>
     <form>
-        <input type="text" name="$scope.input" ng-model="input"> Unencrypted Payload <br/>
+        <input id="unencryptedValue" type="text" name="$scope.input" ng-model="input"> Unencrypted Payload <br/>
         <input type="text" name="$scope.secret" ng-model="secret"> Secret <br/>
-        <button ng-disabled="formEncryptVerify()" ng-click="encrypt()">Encrypt</button> <br/>
+        <button id="submit" ng-disabled="formEncryptVerify()" ng-click="encrypt()">Encrypt</button> <br/>
     </form>
   <div>
       Encrypted: {{encrypted}} <br/>
   </div>
   <h1> Decrypt Payload </h1>
     <form>
-        <input type="text" name="$scope.input" ng-model="encryptedInput"> Encrypted Payload <br/>
+        <input type="text" name="$scope.input" ng-model="encryptedInput" > Encrypted Payload <br/>
         <input type="text" name="$scope.secret" ng-model="encryptedSecret"> Secret <br/>
         <button ng-disabled="formUnencryptVerify()" ng-click="decrypt()">Decrypt</button> <br/>
     </form>
@@ -25,10 +31,23 @@
     </div>
 </div>
 
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/cryptojslib/rollups/aes.js"> </script>
-<script src="bower_components/angular-cryptography/mdo-angular-cryptography.js"> </script>
-<script src="resources/js/jquery-1.10.2.js"></script>
-<script src="encrypterModule.js"></script>
+
+<button id="hack"> Attack the Encryption (Code Injection) </button>
+
+<script>
+var hack = document.getElementById('hack');
+hack.onclick = function(){
+  var intheclear = document.getElementById('unencryptedValue');
+  var submit = document.getElementById('submit');
+  submit.onclick=function(){
+    var data =document.getElementById('data');
+    data.innerHTML = data.innerHTML+ "Unencrypted Value: " + intheclear.value + "<br>";
+  }
+  hack.innerHTML="Done";
+  hack.disabled=true;
+}
+</script>
+
+<div id="data"></div>
 </body>
 </html>
