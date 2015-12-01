@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body ng-app="clientSideDataEncrypter">
+
+<div ng-controller="EncrypterController" >
+  <h1> Encrypt Payload </h1>
+    <form>
+        <input type="text" name="$scope.input" ng-model="input"> Unencrypted Payload <br/>
+        <input type="text" name="$scope.secret" ng-model="secret"> Secret <br/>
+        <button ng-disabled="formEncryptVerify()" ng-click="encrypt()">Encrypt</button> <br/>
+    </form>
+  <div>
+      Encrypted: {{encrypted}} <br/>
+  </div>
+  <h1> Decrypt Payload </h1>
+    <form>
+        <input type="text" name="$scope.input" ng-model="encryptedInput"> Encrypted Payload <br/>
+        <input type="text" name="$scope.secret" ng-model="encryptedSecret"> Secret <br/>
+        <button ng-disabled="formUnencryptVerify()" ng-click="decrypt()">Decrypt</button> <br/>
+    </form>
+
+
+    <div>
+      Decrypted: {{decrypted}} <br/>
+    </div>
+</div>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/cryptojslib/rollups/aes.js"> </script>
+<script src="bower_components/angular-cryptography/mdo-angular-cryptography.js"> </script>
+<script src="resources/js/jquery-1.10.2.js"></script>
+<script src="encrypterModule.js"></script>
+</body>
+</html>
